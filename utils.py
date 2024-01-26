@@ -103,10 +103,8 @@ def ring_to_madx(file: str, save: bool = False, verbose: bool = False) -> Sequen
                     loc = f"{name}, at = {round(pos + length / 2, 6)};\n"
                     pos += length
                     structure += loc
-                    print(name, pos, length)
                 else:
                     pos += length
-                    print(name, pos, length)
 
     structure = structure.replace("total_length", str(round(pos, 6))) + "endsequence;"
 
