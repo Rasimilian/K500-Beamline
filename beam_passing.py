@@ -23,7 +23,7 @@ class Data(BaseModel):
     y: List[float] = []
     x: List[float] = []
     i: List[float] = []
-    best_shot_num: int
+    best_shot_num: int = None
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
 

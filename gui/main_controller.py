@@ -11,6 +11,7 @@ class Application(QtWidgets.QMainWindow, design.Ui_MainWindow):
         super().__init__()
         self.setupUi(self)
         self.setWindowTitle('K500')
+        self.initUI()
 
     def initUI(self):
         self.beam_stats = BeamStats()
@@ -46,9 +47,9 @@ class Application(QtWidgets.QMainWindow, design.Ui_MainWindow):
         self.graphicsView.addItem(self.x_orbit_plot)
         self.graphicsView.addItem(self.y_orbit_plot)
         self.graphicsView_3.addItem(self.i_plot)
-        for plot in self.i_vs_x_plots:
+        for plot in self.i_vs_x_plots.values():
             self.graphicsView_2.addItem(plot)
-        for plot in self.i_vs_y_plots:
+        for plot in self.i_vs_y_plots.values():
             self.graphicsView_4.addItem(plot)
 
     @pyqtSlot()
@@ -66,7 +67,7 @@ class Application(QtWidgets.QMainWindow, design.Ui_MainWindow):
         x = []
         y = []
         i = []
-        for bpm, data in self.beam_stats.history:
+        for bpm, data in self.beam_stats.history.items():
             x.append(data.x[-1])
             y.append(data.y[-1])
             i.append(data.i[-1])
