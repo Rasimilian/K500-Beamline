@@ -9,9 +9,9 @@ from epics import caget, PV
 
 _K500_BPMS = ["DT11", "DT12", "DT13"]
 _VEPP3_BPMS = ["1P7"]
-_KNOBS = {"K500": {"Xe_pos": "CHAN:BPM_NAME:Xe-I",
-                   "Ye_pos": "CHAN:BPM_NAME:Ye-I",
-                   "Ie_pos": "CHAN:BPM_NAME:Xe-I"},
+_KNOBS = {"K500": {"Xe_pos": "CHAN:BPM_NAME:Xu-I",
+                   "Ye_pos": "CHAN:BPM_NAME:Yu-I",
+                   "Ie_pos": "CHAN:BPM_NAME:Iu-I"},
           "VEPP3": {"Xe_pos": "VEPP3:BPM_NAME:X-I",
                     "Ye_pos": "VEPP3:BPM_NAME:Y-I",
                     "Ie_pos": "VEPP3:BPM_NAME:I-I"},
@@ -53,6 +53,9 @@ class BeamStats:
             x = PV(_KNOBS[facility]["Xe_pos"].replace("BPM_NAME", bpm))
             y = PV(_KNOBS[facility]["Ye_pos"].replace("BPM_NAME", bpm))
             i = PV(_KNOBS[facility]["Ie_pos"].replace("BPM_NAME", bpm))
+            x.connect()
+            y.connect()
+            i.connect()
             self.pvs[bpm] = PickupPVs(x=x, y=y, i=i)
 
         self.pvs[self.bpm_for_callback].x.add_callback(self.get_bpm_data)

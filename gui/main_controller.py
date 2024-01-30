@@ -23,15 +23,15 @@ class Application(QtWidgets.QMainWindow, design.Ui_MainWindow):
         self.graphicsView.setBackground('w')
         self.graphicsView.addLegend()
         self.graphicsView.getPlotItem().setLabel('left', "Position [mm]", **styles)
-        self.graphicsView.getPlotItem().setLabel('bottom', 'BPM', **styles)
+        self.graphicsView.getPlotItem().setLabel('bottom', 'BPM index', **styles)
         self.graphicsView_2.setBackground('w')
         self.graphicsView_2.addLegend()
-        self.graphicsView_2.getPlotItem().setLabel('left', "Current [mA]", **styles)
-        self.graphicsView_2.getPlotItem().setLabel('bottom', 'BPM', **styles)
+        self.graphicsView_2.getPlotItem().setLabel('left', "Current History [mA]", **styles)
+        self.graphicsView_2.getPlotItem().setLabel('bottom', 'X Position History [mm]', **styles)
         self.graphicsView_3.setBackground('w')
         self.graphicsView_3.addLegend()
-        self.graphicsView_3.getPlotItem().setLabel('left', "Current History [mA]", **styles)
-        self.graphicsView_3.getPlotItem().setLabel('bottom', "X Position History [mm]", **styles)
+        self.graphicsView_3.getPlotItem().setLabel('left', "Current [mA]", **styles)
+        self.graphicsView_3.getPlotItem().setLabel('bottom', "BPM index", **styles)
         self.graphicsView_4.setBackground('w')
         self.graphicsView_4.addLegend()
         self.graphicsView_4.getPlotItem().setLabel('left', "Current History [mA]", **styles)
@@ -42,8 +42,8 @@ class Application(QtWidgets.QMainWindow, design.Ui_MainWindow):
         self.x_orbit_plot = pg.PlotDataItem(symbol='o', symbolSize=7, symbolBrush='r', name='X', pen=pen)
         self.y_orbit_plot = pg.PlotDataItem(symbol='o', symbolSize=7, symbolBrush='b', name='Y', pen=pen1)
         self.i_plot = pg.PlotDataItem(symbol='o', symbolSize=7, symbolBrush='r', name='I', pen=pen)
-        self.i_vs_x_plots = {bpm: pg.PlotDataItem(symbol='o', symbolSize=2, symbolBrush=colors[idx], name=bpm, pen=None) for idx, bpm in enumerate(self.beam_stats.BPMS)}
-        self.i_vs_y_plots = {bpm: pg.PlotDataItem(symbol='o', symbolSize=2, symbolBrush=colors[idx], name=bpm, pen=None) for idx, bpm in enumerate(self.beam_stats.BPMS)}
+        self.i_vs_x_plots = {bpm: pg.PlotDataItem(symbol='o', symbolSize=7, symbolBrush=colors[idx], name=bpm, pen=None) for idx, bpm in enumerate(self.beam_stats.BPMS)}
+        self.i_vs_y_plots = {bpm: pg.PlotDataItem(symbol='o', symbolSize=7, symbolBrush=colors[idx], name=bpm, pen=None) for idx, bpm in enumerate(self.beam_stats.BPMS)}
         self.graphicsView.addItem(self.x_orbit_plot)
         self.graphicsView.addItem(self.y_orbit_plot)
         self.graphicsView_3.addItem(self.i_plot)
@@ -73,9 +73,9 @@ class Application(QtWidgets.QMainWindow, design.Ui_MainWindow):
             i.append(data.i[-1])
             self.i_vs_x_plots[bpm].setData(data.x, data.i)
             self.i_vs_y_plots[bpm].setData(data.y, data.i)
-        self.x_orbit_plot.setData(self.beam_stats.BPMS, x)
-        self.y_orbit_plot.setData(self.beam_stats.BPMS, y)
-        self.i_plot.setData(self.beam_stats.BPMS, i)
+        self.x_orbit_plot.setData(x)
+        self.y_orbit_plot.setData(y)
+        self.i_plot.setData(i)
 
         if self.pushButton_7.isChecked():
             best_idx = self.beam_stats.history["1P7"].best_shot_num
