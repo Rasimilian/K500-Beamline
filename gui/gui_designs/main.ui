@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
+    <width>804</width>
     <height>600</height>
    </rect>
   </property>
@@ -15,36 +15,36 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="1" column="0">
+    <item row="0" column="1">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
        <number>0</number>
       </property>
-      <widget class="QWidget" name="tab_5">
+      <widget class="QWidget" name="tab_9">
        <attribute name="title">
-        <string>Stats</string>
+        <string>Tab 1</string>
        </attribute>
-       <layout class="QGridLayout" name="gridLayout_6">
-        <item row="0" column="0">
-         <widget class="PlotWidget" name="graphicsView_12"/>
-        </item>
-        <item row="0" column="1">
-         <widget class="PlotWidget" name="graphicsView_9"/>
-        </item>
+       <layout class="QGridLayout" name="gridLayout_8">
         <item row="1" column="0">
-         <widget class="PlotWidget" name="graphicsView_11"/>
+         <widget class="PlotWidget" name="graphicsView_3"/>
         </item>
         <item row="1" column="1">
-         <widget class="PlotWidget" name="graphicsView_10"/>
+         <widget class="PlotWidget" name="graphicsView_4"/>
+        </item>
+        <item row="0" column="1">
+         <widget class="PlotWidget" name="graphicsView_2"/>
+        </item>
+        <item row="0" column="0">
+         <widget class="PlotWidget" name="graphicsView"/>
         </item>
         <item row="2" column="0">
-         <widget class="QGroupBox" name="groupBox_4">
+         <widget class="QGroupBox" name="groupBox">
           <property name="title">
            <string/>
           </property>
-          <layout class="QGridLayout" name="gridLayout_5">
+          <layout class="QGridLayout" name="gridLayout_3">
            <item row="1" column="1">
-            <widget class="QPlainTextEdit" name="plainTextEdit_26">
+            <widget class="QPlainTextEdit" name="plainTextEdit_13">
              <property name="maximumSize">
               <size>
                <width>16777215</width>
@@ -54,21 +54,21 @@
             </widget>
            </item>
            <item row="0" column="0">
-            <widget class="QPushButton" name="pushButton_12">
+            <widget class="QPushButton" name="pushButton">
              <property name="text">
               <string>Connect</string>
              </property>
             </widget>
            </item>
            <item row="0" column="1">
-            <widget class="QPushButton" name="pushButton_13">
+            <widget class="QPushButton" name="pushButton_2">
              <property name="text">
               <string>Save stats</string>
              </property>
             </widget>
            </item>
            <item row="0" column="2">
-            <widget class="QPushButton" name="pushButton_14">
+            <widget class="QPushButton" name="pushButton_3">
              <property name="text">
               <string>Auto-save</string>
              </property>
@@ -78,7 +78,7 @@
             </widget>
            </item>
            <item row="2" column="1">
-            <spacer name="verticalSpacer_4">
+            <spacer name="verticalSpacer_2">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
@@ -94,13 +94,13 @@
          </widget>
         </item>
         <item row="2" column="1">
-         <widget class="QGroupBox" name="groupBox_3">
+         <widget class="QGroupBox" name="groupBox_2">
           <property name="title">
            <string>Best beam passing</string>
           </property>
-          <layout class="QGridLayout" name="gridLayout_4">
+          <layout class="QGridLayout" name="gridLayout_2">
            <item row="4" column="4">
-            <widget class="QPlainTextEdit" name="plainTextEdit_14">
+            <widget class="QPlainTextEdit" name="plainTextEdit_11">
              <property name="maximumSize">
               <size>
                <width>16777215</width>
@@ -113,7 +113,7 @@
             </widget>
            </item>
            <item row="3" column="1">
-            <widget class="QPlainTextEdit" name="plainTextEdit_15">
+            <widget class="QPlainTextEdit" name="plainTextEdit">
              <property name="maximumSize">
               <size>
                <width>16777215</width>
@@ -126,7 +126,7 @@
             </widget>
            </item>
            <item row="3" column="0">
-            <widget class="QLabel" name="label_2">
+            <widget class="QLabel" name="label">
              <property name="maximumSize">
               <size>
                <width>16777215</width>
@@ -142,7 +142,7 @@
             </widget>
            </item>
            <item row="3" column="2">
-            <widget class="QPlainTextEdit" name="plainTextEdit_16">
+            <widget class="QPlainTextEdit" name="plainTextEdit_2">
              <property name="maximumSize">
               <size>
                <width>16777215</width>
@@ -155,7 +155,7 @@
             </widget>
            </item>
            <item row="3" column="3">
-            <widget class="QPlainTextEdit" name="plainTextEdit_17">
+            <widget class="QPlainTextEdit" name="plainTextEdit_3">
              <property name="maximumSize">
               <size>
                <width>16777215</width>
@@ -168,7 +168,7 @@
             </widget>
            </item>
            <item row="6" column="1">
-            <spacer name="verticalSpacer_3">
+            <spacer name="verticalSpacer">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
@@ -181,7 +181,7 @@
             </spacer>
            </item>
            <item row="5" column="4">
-            <widget class="QPlainTextEdit" name="plainTextEdit_18">
+            <widget class="QPlainTextEdit" name="plainTextEdit_12">
              <property name="maximumSize">
               <size>
                <width>16777215</width>
@@ -194,7 +194,7 @@
             </widget>
            </item>
            <item row="3" column="4">
-            <widget class="QPlainTextEdit" name="plainTextEdit_19">
+            <widget class="QPlainTextEdit" name="plainTextEdit_10">
              <property name="maximumSize">
               <size>
                <width>16777215</width>
@@ -207,7 +207,7 @@
             </widget>
            </item>
            <item row="5" column="0">
-            <widget class="QLabel" name="label_7">
+            <widget class="QLabel" name="label_6">
              <property name="maximumSize">
               <size>
                <width>16777215</width>
@@ -223,7 +223,7 @@
             </widget>
            </item>
            <item row="4" column="3">
-            <widget class="QPlainTextEdit" name="plainTextEdit_20">
+            <widget class="QPlainTextEdit" name="plainTextEdit_6">
              <property name="maximumSize">
               <size>
                <width>16777215</width>
@@ -236,7 +236,7 @@
             </widget>
            </item>
            <item row="4" column="2">
-            <widget class="QPlainTextEdit" name="plainTextEdit_21">
+            <widget class="QPlainTextEdit" name="plainTextEdit_5">
              <property name="maximumSize">
               <size>
                <width>16777215</width>
@@ -249,7 +249,7 @@
             </widget>
            </item>
            <item row="5" column="1">
-            <widget class="QPlainTextEdit" name="plainTextEdit_22">
+            <widget class="QPlainTextEdit" name="plainTextEdit_9">
              <property name="maximumSize">
               <size>
                <width>16777215</width>
@@ -262,7 +262,7 @@
             </widget>
            </item>
            <item row="5" column="2">
-            <widget class="QPlainTextEdit" name="plainTextEdit_23">
+            <widget class="QPlainTextEdit" name="plainTextEdit_8">
              <property name="maximumSize">
               <size>
                <width>16777215</width>
@@ -275,7 +275,7 @@
             </widget>
            </item>
            <item row="5" column="3">
-            <widget class="QPlainTextEdit" name="plainTextEdit_24">
+            <widget class="QPlainTextEdit" name="plainTextEdit_7">
              <property name="maximumSize">
               <size>
                <width>16777215</width>
@@ -288,7 +288,7 @@
             </widget>
            </item>
            <item row="4" column="0">
-            <widget class="QLabel" name="label_8">
+            <widget class="QLabel" name="label_5">
              <property name="maximumSize">
               <size>
                <width>16777215</width>
@@ -304,7 +304,7 @@
             </widget>
            </item>
            <item row="4" column="1">
-            <widget class="QPlainTextEdit" name="plainTextEdit_25">
+            <widget class="QPlainTextEdit" name="plainTextEdit_4">
              <property name="maximumSize">
               <size>
                <width>16777215</width>
@@ -317,7 +317,7 @@
             </widget>
            </item>
            <item row="1" column="3">
-            <widget class="QPushButton" name="pushButton_8">
+            <widget class="QPushButton" name="pushButton_6">
              <property name="text">
               <string>DT13</string>
              </property>
@@ -333,7 +333,7 @@
             </widget>
            </item>
            <item row="1" column="2">
-            <widget class="QPushButton" name="pushButton_9">
+            <widget class="QPushButton" name="pushButton_5">
              <property name="text">
               <string>DT12</string>
              </property>
@@ -349,7 +349,7 @@
             </widget>
            </item>
            <item row="1" column="4">
-            <widget class="QPushButton" name="pushButton_10">
+            <widget class="QPushButton" name="pushButton_7">
              <property name="text">
               <string>1P7</string>
              </property>
@@ -368,7 +368,7 @@
             </widget>
            </item>
            <item row="1" column="1">
-            <widget class="QPushButton" name="pushButton_11">
+            <widget class="QPushButton" name="pushButton_4">
              <property name="text">
               <string>DT11</string>
              </property>
@@ -388,13 +388,13 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="tab_6">
+      <widget class="QWidget" name="tab_10">
        <attribute name="title">
-        <string>Passing</string>
+        <string>Tab 2</string>
        </attribute>
-       <layout class="QGridLayout" name="gridLayout_7">
+       <layout class="QGridLayout" name="gridLayout_9">
         <item row="0" column="0">
-         <widget class="PlotWidget" name="graphicsView_13"/>
+         <widget class="PlotWidget" name="graphicsView_17"/>
         </item>
        </layout>
       </widget>
@@ -407,7 +407,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>804</width>
      <height>26</height>
     </rect>
    </property>
