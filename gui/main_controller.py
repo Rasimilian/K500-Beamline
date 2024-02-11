@@ -1,4 +1,7 @@
+import numpy as np
+from PIL import Image
 import pyqtgraph as pg
+
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import pyqtSlot
 
@@ -51,6 +54,14 @@ class Application(QtWidgets.QMainWindow, design.Ui_MainWindow):
             self.graphicsView_2.addItem(plot)
         for plot in self.i_vs_y_plots.values():
             self.graphicsView_4.addItem(plot)
+
+        img = Image.open("gui/resources/k500_structure.jpg")
+        img_to_array = np.asarray(img)
+        img = pg.ImageItem(image=img_to_array, axisOrder='row-major')
+        self.graphicsView_17.setBackground('w')
+        self.graphicsView_17.addLegend()
+        self.graphicsView_17.invertY(True)
+        self.graphicsView_17.addItem(img)
 
     @pyqtSlot()
     def save_history(self):
