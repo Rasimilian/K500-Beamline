@@ -178,7 +178,7 @@ class Ui_MainWindow(object):
         self.gridLayout.addWidget(self.tabWidget, 0, 1, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 804, 26))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 804, 21))
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
@@ -203,6 +203,6 @@ class Ui_MainWindow(object):
         self.pushButton_5.setText(_translate("MainWindow", "DT12"))
         self.pushButton_7.setText(_translate("MainWindow", "1P7"))
         self.pushButton_4.setText(_translate("MainWindow", "DT11"))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_9), _translate("MainWindow", "Tab 1"))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_10), _translate("MainWindow", "Tab 2"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_9), _translate("MainWindow", "Stats"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_10), _translate("MainWindow", "Passing"))
 from pyqtgraph import PlotWidget
