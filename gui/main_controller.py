@@ -4,9 +4,11 @@ import pyqtgraph as pg
 
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import pyqtSlot
+from PyQt5.QtGui import QTransform
 
 from beam_passing import BeamStats
 import gui.gui_designs.main as design
+from gui.bpm_display import BPMsDisplay
 
 
 class Application(QtWidgets.QMainWindow, design.Ui_MainWindow):
@@ -55,13 +57,19 @@ class Application(QtWidgets.QMainWindow, design.Ui_MainWindow):
         for plot in self.i_vs_y_plots.values():
             self.graphicsView_4.addItem(plot)
 
-        img = Image.open("gui/resources/k500_structure.jpg")
-        img_to_array = np.asarray(img)
-        img = pg.ImageItem(image=img_to_array, axisOrder='row-major')
         self.graphicsView_17.setBackground('w')
         self.graphicsView_17.addLegend()
         self.graphicsView_17.invertY(True)
+        tr = QTransform()
+        tr.scale(BPMsDisplay.scale, BPMsDisplay.scale)
+        img = Image.open("gui/resources/k500_structure.jpg")
+        img_to_array = np.asarray(img)
+        img = pg.ImageItem(image=img_to_array, axisOrder='row-major')
+        img.setTransform(tr)
+        pen = pg.mkPen(color='r', width=5)
+        self.plot_orbit_beamline = pg.PlotDataItem(symbol='o', symbolSize=8, symbolBrush='r', name='Orbit Y', pen=pen)
         self.graphicsView_17.addItem(img)
+        self.graphicsView_17.addItem(self.plot_orbit_beamline)
 
     @pyqtSlot()
     def save_history(self):
@@ -87,6 +95,8 @@ class Application(QtWidgets.QMainWindow, design.Ui_MainWindow):
         self.x_orbit_plot.setData(x)
         self.y_orbit_plot.setData(y)
         self.i_plot.setData(i)
+        x_beamline, y_beamline = BPMsDisplay.get_absolute_pos(y)
+        self.plot_orbit_beamline.setData(x_beamline, y_beamline)
 
         if self.pushButton_7.isChecked():
             best_idx = self.beam_stats.history["1P7"].best_shot_num
