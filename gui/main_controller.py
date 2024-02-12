@@ -95,7 +95,7 @@ class Application(QtWidgets.QMainWindow, design.Ui_MainWindow):
         self.x_orbit_plot.setData(x)
         self.y_orbit_plot.setData(y)
         self.i_plot.setData(i)
-        x_beamline, y_beamline = BPMsDisplay.get_absolute_pos(y)
+        x_beamline, y_beamline = BPMsDisplay.get_absolute_pos(y[:-1])
         self.plot_orbit_beamline.setData(x_beamline, y_beamline)
 
         if self.pushButton_7.isChecked():
