@@ -19,7 +19,7 @@ class Application(QtWidgets.QMainWindow, design.Ui_MainWindow):
 
     def initUI(self):
         self.beam_stats = BeamStats()
-        self.graphs = Graphs(self.beam_stats.BPMS)
+        self.graphs = Graphs(self.beam_stats.bpms)
 
         self.pushButton.clicked.connect(self.connect)
         self.pushButton_2.clicked.connect(self.save_history)
