@@ -4,7 +4,7 @@ from PyQt5.QtCore import pyqtSlot
 import gui.gui_designs.main as design
 from gui.bpm_display import BPMsDisplay
 from gui.graphs import Graphs
-from beam_passing import BeamStats
+from beam_control.beam_passing import BeamStats
 
 
 class Application(QtWidgets.QMainWindow, design.Ui_MainWindow):
