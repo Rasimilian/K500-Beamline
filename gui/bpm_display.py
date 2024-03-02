@@ -5,7 +5,7 @@ import numpy as np
 
 class BPMsDisplay:
     name: List[str] = ["DT11", "DT12", "DT13"]
-    x_center: np.ndarray = np.array([660, 872, 1140])
+    x_center: np.ndarray = np.array([660, 872, 1140])  # pixels
     y_center: np.ndarray = np.array([510, 211, 97])
     angle: np.ndarray = np.array([0.8, 0.8, 0.2])  # rads
     scale: float = 0.05
