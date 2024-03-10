@@ -79,12 +79,23 @@ class BeamStats:
             self.history[bpm].y.append(self.pvs[bpm].y.value)
             self.history[bpm].i.append(self.pvs[bpm].i.value)
             self.history[bpm].time.append(time)
+            if bpm == "1P7":
+                self._filter_bpm_data(bpm)
             self.find_best_passing(bpm)
 
     def find_best_passing(self, bpm: str):
         max_current = max(self.history[bpm].i)
         max_current_id = self.history[bpm].i.index(max_current)
         self.history[bpm].best_shot_num = max_current_id
+
+    def _filter_bpm_data(self, bpm: str):
+        if len(self.history[bpm].i) == 1:
+            self._last_current_val = self.history[bpm].i[0]
+            self.history[bpm].i[0] = 0
+        else:
+            delta = self.history[bpm].i[-1] - self._last_current_val
+            self._last_current_val = self.history[bpm].i[-1]
+            self.history[bpm].i[-1] = delta if delta > 0 else 0
 
     def save_data(self, comment: str, auto_save: bool = False):
         history = deepcopy(self.history)
