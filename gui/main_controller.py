@@ -1,10 +1,10 @@
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import pyqtSlot
 
-import gui.qt_designs.main as design
-from gui.bpm_display import BPMsDisplay
-from gui.graphs import Graphs
 from beam_control.beam_passing import BeamStats
+
+import gui.qt_designs.main as design
+from gui.graphs import Graphs
 
 
 class Application(QtWidgets.QMainWindow, design.Ui_MainWindow):
@@ -31,23 +31,18 @@ class Application(QtWidgets.QMainWindow, design.Ui_MainWindow):
         self.graphicsView.getPlotItem().setLabel('bottom', 'BPM index', **styles)
         self.graphicsView_2.setBackground('w')
         self.graphicsView_2.addLegend()
-        self.graphicsView_2.getPlotItem().setLabel('left', "Current History [mA]", **styles)
-        self.graphicsView_2.getPlotItem().setLabel('bottom', 'X Position History [mm]', **styles)
+        self.graphicsView_2.getPlotItem().setLabel('left', "Current [mA]", **styles)
+        self.graphicsView_2.getPlotItem().setLabel('bottom', "BPM index", **styles)
         self.graphicsView_3.setBackground('w')
         self.graphicsView_3.addLegend()
-        self.graphicsView_3.getPlotItem().setLabel('left', "Current [mA]", **styles)
-        self.graphicsView_3.getPlotItem().setLabel('bottom', "BPM index", **styles)
-        self.graphicsView_4.setBackground('w')
-        self.graphicsView_4.addLegend()
-        self.graphicsView_4.getPlotItem().setLabel('left', "Current History [mA]", **styles)
-        self.graphicsView_4.getPlotItem().setLabel('bottom', "Y Position History [mm]", **styles)
+        self.graphicsView_3.getPlotItem().setLabel('left', "Y Position History [mm]", **styles)
+        self.graphicsView_3.getPlotItem().setLabel('bottom', "X Position History [mm]", **styles)
+
         self.graphicsView.addItem(self.graphs.x_orbit_plot)
         self.graphicsView.addItem(self.graphs.y_orbit_plot)
-        self.graphicsView_3.addItem(self.graphs.i_plot)
-        for plot in self.graphs.i_vs_x_plots.values():
-            self.graphicsView_2.addItem(plot)
-        for plot in self.graphs.i_vs_y_plots.values():
-            self.graphicsView_4.addItem(plot)
+        self.graphicsView_2.addItem(self.graphs.i_plot)
+        for plot in self.graphs.i_vs_xy_plots.values():
+            self.graphicsView_3.addItem(plot)
 
         self.graphicsView_17.setBackground('w')
         self.graphicsView_17.addLegend()
@@ -67,20 +62,7 @@ class Application(QtWidgets.QMainWindow, design.Ui_MainWindow):
         self.beam_stats.pvs[self.beam_stats.bpm_for_callback].x.add_callback(self.add_plot_callback)
 
     def add_plot_callback(self):
-        x = []
-        y = []
-        i = []
-        for bpm, data in self.beam_stats.history.items():
-            x.append(data.x[-1])
-            y.append(data.y[-1])
-            i.append(data.i[-1])
-            self.graphs.i_vs_x_plots[bpm].setData(data.x, data.i)
-            self.graphs.i_vs_y_plots[bpm].setData(data.y, data.i)
-        self.graphs.x_orbit_plot.setData(x)
-        self.graphs.y_orbit_plot.setData(y)
-        self.graphs.i_plot.setData(i)
-        x_beamline, y_beamline = BPMsDisplay.get_absolute_pos(y[:-1])
-        self.plot_orbit_beamline.setData(x_beamline, y_beamline)
+        self.graphs.set_data(self.beam_stats)
 
         if self.pushButton_7.isChecked():
             best_idx = self.beam_stats.history["1P7"].best_shot_num
