@@ -11,7 +11,7 @@ class Sequence:
         self.seq_str = seq_str
 
 
-def ring_to_madx(file: str, save: bool = False, verbose: bool = False) -> Sequence:
+def ring_to_madx(file: str, save: bool = False, file_to_save: str = None, verbose: bool = False) -> Sequence:
     """
     Convert structure in the RING format to the MAD-X format.
     """
@@ -112,7 +112,7 @@ def ring_to_madx(file: str, save: bool = False, verbose: bool = False) -> Sequen
         print(structure)
 
     if save:
-        with open("k500.seq", "w") as f:
+        with open(file_to_save, "w") as f:
             f.write(structure)
 
     sequence = Sequence(elem_defs=elem_def,
