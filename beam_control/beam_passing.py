@@ -3,9 +3,11 @@ from copy import deepcopy
 from pathlib import Path
 from typing import Dict, List
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict
 
-from epics import caget, PV
+from pydantic import BaseModel, ConfigDict
+from epics import PV
+
+from PyQt5.QtCore import pyqtSlot
 
 _K500_BPMS = ["DT11", "DT12", "DT13"]
 _VEPP3_BPMS = ["1P7"]
@@ -19,31 +21,37 @@ _KNOBS = {"K500": {"Xe_pos": "CHAN:BPM_NAME:Xu-I",
 
 
 class Data(BaseModel):
+    model_config = ConfigDict(arbitrary_types_allowed=True)
     time: List[str] = []
     y: List[float] = []
     x: List[float] = []
     i: List[float] = []
     best_shot_num: int = None
-    model_config = ConfigDict(arbitrary_types_allowed=True)
 
 
 class PickupPVs(BaseModel):
+    model_config = ConfigDict(arbitrary_types_allowed=True)
     x: PV
     y: PV
     i: PV
-    model_config = ConfigDict(arbitrary_types_allowed=True)
 
 
 class BeamStats:
+    bpms: List[str]
+    history: Dict[str, Data]
+    best_shot_num: int
+    pvs: Dict[str, PickupPVs]
+    bpm_for_callback: str
+
     def __init__(self):
-        self.BPMS: List[str] = _K500_BPMS + _VEPP3_BPMS
-        self.history: Dict[str, Data] = {bpm: Data() for bpm in self.BPMS}
-        self.best_shot_num: int = 0
-        self.pvs: Dict[str, PickupPVs] = {}
-        self.bpm_for_callback: str = _K500_BPMS[-1]
+        self.bpms = _K500_BPMS + _VEPP3_BPMS
+        self.history = {bpm: Data() for bpm in self.bpms}
+        self.best_shot_num = 0
+        self.pvs = {}
+        self.bpm_for_callback = _K500_BPMS[-1]
 
     def connect(self):
-        for bpm in self.BPMS:
+        for bpm in self.bpms:
             if bpm in _K500_BPMS:
                 facility = "K500"
             elif bpm in _VEPP3_BPMS:
@@ -63,13 +71,16 @@ class BeamStats:
     def disconnect(self):
         self.pvs[self.bpm_for_callback].x.clear_callbacks()
 
-    def get_bpm_data(self, pvname=None, value=None, char_value=None, **kw):
+    @pyqtSlot()
+    def get_bpm_data(self):
         time = datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
-        for bpm in self.BPMS:
+        for bpm in self.bpms:
             self.history[bpm].x.append(self.pvs[bpm].x.value)
             self.history[bpm].y.append(self.pvs[bpm].y.value)
             self.history[bpm].i.append(self.pvs[bpm].i.value)
             self.history[bpm].time.append(time)
+            if bpm == "1P7":
+                self._filter_bpm_data(bpm)
             self.find_best_passing(bpm)
 
     def find_best_passing(self, bpm: str):
@@ -77,9 +88,18 @@ class BeamStats:
         max_current_id = self.history[bpm].i.index(max_current)
         self.history[bpm].best_shot_num = max_current_id
 
+    def _filter_bpm_data(self, bpm: str):
+        if len(self.history[bpm].i) == 1:
+            self._last_current_val = self.history[bpm].i[0]
+            self.history[bpm].i[0] = 0
+        else:
+            delta = self.history[bpm].i[-1] - self._last_current_val
+            self._last_current_val = self.history[bpm].i[-1]
+            self.history[bpm].i[-1] = delta if delta > 0 else 0
+
     def save_data(self, comment: str, auto_save: bool = False):
         history = deepcopy(self.history)
-        for bpm in self.BPMS:
+        for bpm in self.bpms:
             history[bpm] = history[bpm].model_dump(mode="json")
 
         time = datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
