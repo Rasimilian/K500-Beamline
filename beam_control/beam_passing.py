@@ -72,7 +72,7 @@ class BeamStats:
         self.pvs[self.bpm_for_callback].x.clear_callbacks()
 
     @pyqtSlot()
-    def get_bpm_data(self):
+    def get_bpm_data(self, pvname=None, value=None, char_value=None, **kw):
         time = datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
         for bpm in self.bpms:
             self.history[bpm].x.append(self.pvs[bpm].x.value)
