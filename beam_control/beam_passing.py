@@ -7,8 +7,6 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict
 from epics import PV
 
-from PyQt5.QtCore import pyqtSlot
-
 _K500_BPMS = ["DT11", "DT12", "DT13"]
 _VEPP3_BPMS = ["1P7"]
 _KNOBS = {"K500": {"Xe_pos": "CHAN:BPM_NAME:Xu-I",
@@ -71,7 +69,6 @@ class BeamStats:
     def disconnect(self):
         self.pvs[self.bpm_for_callback].x.clear_callbacks()
 
-    @pyqtSlot()
     def get_bpm_data(self, pvname=None, value=None, char_value=None, **kw):
         time = datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
         for bpm in self.bpms:

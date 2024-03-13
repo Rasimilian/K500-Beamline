@@ -62,7 +62,7 @@ class Application(QtWidgets.QMainWindow, design.Ui_MainWindow):
         self.beam_stats.pvs[self.beam_stats.bpm_for_callback].x.add_callback(self.add_plot_callback)
         self.pushButton.setEnabled(False)
 
-    def add_plot_callback(self):
+    def add_plot_callback(self, pvname=None, value=None, char_value=None, **kw):
         self.graphs.set_data(self.beam_stats)
 
         if self.pushButton_7.isChecked():
