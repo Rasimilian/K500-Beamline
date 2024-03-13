@@ -44,7 +44,7 @@ class Graphs:
             x_all = np.array(data.x)
             y_all = np.array(data.y)
             i_all = np.array(data.i)
-            i_all_scaled_sorted_index = np.argsort((i_all - i_all.min()) / np.ptp(i_all))
+            i_all_scaled_sorted_index = np.argsort((i_all - i_all.min()) / np.ptp(i_all))  # Scale to [0, 1]
             colors = self._colormap.getLookupTable(0, 1, nPts=i_all.size, alpha=True)
             for idx in range(len(i_all)):
                 points.append({'pos': (x_all[i_all_scaled_sorted_index[idx]], y_all[i_all_scaled_sorted_index[idx]]),
@@ -57,6 +57,7 @@ class Graphs:
                                    'symbol': 's',
                                    'pen': {'color': 'k', 'width': 2, 'style': Qt.DashLine},
                                    'brush': 'w'})
+            self.i_vs_xy_plots[bpm].clear()
             self.i_vs_xy_plots[bpm].addPoints(points)
         self.x_orbit_plot.setData(x)
         self.y_orbit_plot.setData(y)
