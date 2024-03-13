@@ -37,13 +37,13 @@ class Graphs:
         y = []
         i = []
         for bpm, data in beam_stats.history.items():
-            x.append(data[bpm].x[-1])
-            y.append(data[bpm].y[-1])
-            i.append(data[bpm].i[-1])
+            x.append(data.x[-1])
+            y.append(data.y[-1])
+            i.append(data.i[-1])
             points = []
-            x_all = np.array(data[bpm].x)
-            y_all = np.array(data[bpm].y)
-            i_all = np.array(data[bpm].i)
+            x_all = np.array(data.x)
+            y_all = np.array(data.y)
+            i_all = np.array(data.i)
             i_all_scaled_sorted_index = np.argsort((i_all - i_all.min()) / np.ptp(i_all))
             colors = self._colormap.getLookupTable(0, 1, nPts=i_all.size, alpha=True)
             for idx in range(len(i_all)):
